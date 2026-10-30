@@ -1,3 +1,9 @@
+# MediCare Hospital Management System
+
+🌐 **Live Demo:** https://hospital-management-sys-0rgp.onrender.com
+
+A Hospital Management System built using Flask, SQLite, HTML, CSS and JavaScript.
+
 # MediCare — Hospital Management System UI
 
 A responsive, beginner-friendly Flask + SQLite starter project with seven requested public pages:
