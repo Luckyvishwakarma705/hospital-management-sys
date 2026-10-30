@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MediCare hospital information and patient support demo website">
+  <title>{% block title %}MediCare Hospital{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="topbar"><div class="container topbar-inner"><span>✦ Care that puts people first</span><span>Emergency? Please contact your local emergency service.</span></div></div>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✚</span><span>Medi<span class="brand-accent">Care</span><small>HOSPITAL & WELLNESS</small></span></a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="{{ 'active' if page=='home' else '' }}" href="{{ url_for('home') }}">Home</a>
+        <a class="{{ 'active' if page=='about' else '' }}" href="{{ url_for('about') }}">About</a>
+        <a class="{{ 'active' if page=='services' else '' }}" href="{{ url_for('services') }}">Services</a>
+        <a class="{{ 'active' if page=='contact' else '' }}" href="{{ url_for('contact') }}">Contact</a>
+        <a class="{{ 'active' if page=='help' else '' }}" href="{{ url_for('help_page') }}">Help</a>
+        {% if session.get('user_id') %}
+          <a class="nav-login" href="{{ url_for('account') }}">My Account</a><a class="nav-cta" href="{{ url_for('logout') }}">Log out ↗</a>
+        {% else %}
+          <a class="nav-login {{ 'active' if page=='login' else '' }}" href="{{ url_for('login') }}">Log in</a>
+          <a class="nav-cta" href="{{ url_for('register') }}">Get started ↗</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}<div class="container flash-wrap">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% endwith %}
+  <main>{% block content %}{% endblock %}</main>
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div><a class="brand footer-brand" href="{{ url_for('home') }}"><span class="brand-mark">✚</span><span>Medi<span class="brand-accent">Care</span><small>HOSPITAL & WELLNESS</small></span></a><p class="footer-copy">Thoughtful care, clearer choices, and support at every step.</p></div>
+      <div><h4>Explore</h4><a href="{{ url_for('about') }}">About us</a><a href="{{ url_for('services') }}">Our services</a><a href="{{ url_for('help_page') }}">Help center</a></div>
+      <div><h4>Get in touch</h4><a href="{{ url_for('contact') }}">Contact team</a><span>hello@medicare.example</span><span>Mon–Sat · 8:00–18:00</span></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 MediCare Hospital · Demo website</span><span>Built around people, powered by care.</span></div>
+  </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
